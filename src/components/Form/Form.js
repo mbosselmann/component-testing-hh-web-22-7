@@ -74,8 +74,8 @@ export default function Form({ onAddMovie }) {
   }
 
   return (
-    <StyledForm onSubmit={handleSubmit}>
-      <Title>Add a new movie</Title>
+    <StyledForm onSubmit={handleSubmit} aria-labelledby="form-title">
+      <Title id="form-title">Add a new movie</Title>
       <Fields>
         <Field>
           <Label htmlFor="name">Name</Label>

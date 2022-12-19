@@ -19,8 +19,9 @@ const initialMovies = [
   },
 ];
 
-const StyledApp = styled.div`
-  width: min(500px, 100% - 2rem);
+const StyledApp = styled.main`
+  max-width: 700px;
+  width: 500px;
 `;
 
 export default function App() {

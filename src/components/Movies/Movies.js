@@ -36,11 +36,10 @@ export default function Movies({ initialMovies = [] }) {
         {movies.map((movie) => (
           <li key={movie.id}>
             <Movie
-              id={movie.id}
               name={movie.name}
               isLiked={movie.isLiked}
-              onDeleteMovie={handleDeleteMovie}
-              onToggleLike={handleToggleLike}
+              onDeleteMovie={() => handleDeleteMovie(movie.id)}
+              onToggleLike={() => handleToggleLike(movie.id)}
             />
           </li>
         ))}

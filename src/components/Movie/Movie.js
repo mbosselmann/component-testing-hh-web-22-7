@@ -1,27 +1,16 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 const Title = styled.h2`
-  text-decoration: underline;
   font-size: 1.7rem;
-  text-decoration-color: transparent;
-  text-underline-offset: 2px;
-  text-decoration-thickness: 2px;
   margin: 0;
-  opacity: 0.5;
-  transition: all 200ms;
-  ${({ isLiked }) =>
-    isLiked &&
-    css`
-      opacity: 1;
-      text-decoration-color: var(--nemo);
-    `}
+  opacity: ${(props) => (props.isLiked ? "1" : "0.5")};
 `;
 
 const Button = styled.button`
   border: none;
   background-color: var(--granite);
   color: var(--foam);
-  border-radius: 999px;
+  border-radius: 50%;
   width: 2em;
   height: 2em;
 
@@ -36,7 +25,7 @@ const Actions = styled.div`
   gap: 4px;
 `;
 
-const StyledMovie = styled.section`
+const StyledMovie = styled.article`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -52,11 +41,10 @@ const StyledMovie = styled.section`
 `;
 
 export default function Movie({
-  id,
   name,
   isLiked = false,
-  onDeleteMovie = () => {},
-  onToggleLike = () => {},
+  onDeleteMovie,
+  onToggleLike,
 }) {
   return (
     <StyledMovie>
@@ -64,17 +52,15 @@ export default function Movie({
       <Actions>
         <Button
           type="button"
-          title={isLiked ? `unlike ${name}` : `like ${name}`}
           aria-label={isLiked ? `unlike ${name}` : `like ${name}`}
-          onClick={() => onToggleLike(id)}
+          onClick={onToggleLike}
         >
           {isLiked ? "👍" : "👎"}
         </Button>
         <Button
           type="button"
-          title={`delete ${name}`}
           aria-label={`delete ${name}`}
-          onClick={() => onDeleteMovie(id)}
+          onClick={onDeleteMovie}
         >
           ✕
         </Button>
