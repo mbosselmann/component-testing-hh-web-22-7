@@ -14,16 +14,17 @@ test.todo("clears the isLiked input when the form is submitted");
 // Hint: the matcher ".toHaveFocus()" could be useful here
 test.todo("focusses the name input when the form is submitted");
 
-// does not work currently, but does work with Next.JS
+test("validates required name input", async () => {
+  const user = userEvent.setup();
+  const handleAddMovie = jest.fn();
 
-// test("does not call the onAddMovie handler when the form is submitted without a name", async () => {
-//   const user = userEvent.setup();
-//   const handleAddMovie = jest.fn();
+  render(<Form onAddMovie={handleAddMovie} />);
 
-//   render(<Form onAddMovie={handleAddMovie} />);
+  const input = screen.getByLabelText(/name/i);
 
-//   const submitButton = screen.getByRole("button", { name: "Add" });
+  expect(input).toBeInvalid();
 
-//   await user.click(submitButton);
-//   expect(handleAddMovie).not.toHaveBeenCalled();
-// });
+  await user.type(input, "Mareike");
+
+  expect(input).toBeValid();
+});
