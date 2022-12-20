@@ -24,7 +24,7 @@ export default createGlobalStyle`
     padding: 0;
   }
   
-  #__next {
+  #root {
     display: grid;
     min-height: 100vh;
     place-items: center;
