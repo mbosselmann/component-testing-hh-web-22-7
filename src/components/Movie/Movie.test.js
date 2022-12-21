@@ -12,11 +12,35 @@ test("renders a movie", () => {
   expect(drStrangeHeading).toBeInTheDocument();
 });
 
-test.todo("renders a movie with a like button");
+test("renders a movie with a like button", () => {
+  render(<Movie name="Dr. Strange and the Universe of Madness" />);
 
-test.todo("renders a movie with a unlike button");
+  const drStrangeLikeButton = screen.getByRole("button", {
+    name: "like Dr. Strange and the Universe of Madness",
+  });
 
-test.todo("renders a movie with a delete button");
+  expect(drStrangeLikeButton).toBeInTheDocument();
+});
+
+test("renders a movie with a unlike button", () => {
+  render(<Movie name="Dr. Strange and the Universe of Madness" isLiked />);
+
+  const drStrangeUnlikeButton = screen.getByRole("button", {
+    name: "unlike Dr. Strange and the Universe of Madness",
+  });
+
+  expect(drStrangeUnlikeButton).toBeInTheDocument();
+});
+
+test("renders a movie with a delete button", () => {
+  render(<Movie name="Dr. Strange and the Universe of Madness" />);
+
+  const deleteButton = screen.getByRole("button", {
+    name: "delete Dr. Strange and the Universe of Madness",
+  });
+
+  expect(deleteButton).toBeInTheDocument();
+});
 
 test("calls the onToggleLike handler when the like button is clicked", async () => {
   const user = userEvent.setup();
@@ -37,4 +61,22 @@ test("calls the onToggleLike handler when the like button is clicked", async () 
   expect(handleToggleLike).toHaveBeenCalled();
 });
 
-test.todo("calls the onDeleteMovie handler when delete button is clicked");
+test("calls the onDeleteMovie handler when delete button is clicked", async () => {
+  const user = userEvent.setup();
+  const handleDeleteMovie = jest.fn();
+
+  render(
+    <Movie
+      name="Dr. Strange and the Universe of Madness"
+      onDeleteMovie={handleDeleteMovie}
+    />
+  );
+
+  const deleteButton = screen.getByRole("button", {
+    name: "delete Dr. Strange and the Universe of Madness",
+  });
+
+  await user.click(deleteButton);
+
+  expect(handleDeleteMovie).toHaveBeenCalled();
+});

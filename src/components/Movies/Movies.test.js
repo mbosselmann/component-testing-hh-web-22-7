@@ -63,11 +63,51 @@ test("renders a new movie when the form is submitted with a new movie name", asy
 // Hint: think about how you get the button by role and his accessible name
 // maybe the matcher ".toHaveAccessibleName()" could be useful
 
-test.todo("likes a movie when the like button is clicked");
+test("likes a movie when the like button is clicked", async () => {
+  const user = userEvent.setup();
 
-test.todo("unlikes a movie when the unlike button is clicked");
+  render(<Movies initialMovies={initialMovies} />);
+
+  const likeButton = screen.getByRole("button", {
+    name: "like The Incredible Hulk",
+  });
+
+  await user.click(likeButton);
+
+  expect(likeButton).toHaveAccessibleName("unlike The Incredible Hulk");
+});
+
+test("unlikes a movie when the unlike button is clicked", async () => {
+  const user = userEvent.setup();
+
+  render(<Movies initialMovies={initialMovies} />);
+
+  const unlikeButton = screen.getByRole("button", {
+    name: "unlike Lord of the Rings",
+  });
+
+  await user.click(unlikeButton);
+
+  expect(unlikeButton).toHaveAccessibleName("like Lord of the Rings");
+});
 
 // Hint: to test if something is not in the document you can work with the screen method
 // ".queryByRole()" and with "not.toBeInTheDocument()" for your assertion
 
-test.todo("deletes a movie when the delete button is clicked");
+test("deletes a movie when the delete button is clicked", async () => {
+  const user = userEvent.setup();
+
+  render(<Movies initialMovies={initialMovies} />);
+
+  const deleteButton = screen.getByRole("button", {
+    name: "delete The Incredible Hulk",
+  });
+
+  await user.click(deleteButton);
+
+  const hulkHeadline = screen.queryByRole("heading", {
+    name: "The Incredible Hulk",
+  });
+
+  expect(hulkHeadline).not.toBeInTheDocument();
+});
